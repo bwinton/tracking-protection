@@ -1,0 +1,20 @@
+{
+  "name": "tracking-protection-prototype",
+  "license": "MPL-2.0",
+  "author": "Blake Winton <bwinton@mozilla.com>",
+  "bugs": {},
+  "amd": {},
+  "repository": {},
+  "version": "1.0.0",
+  "title": "Tracking Protection Prototype",
+  "engines": {
+    "firefox": ">=34.0a1",
+    "fennec": ">=34.0a1"
+  },
+  "id": "tracking-protection-prototype@mozilla",
+  "description": "Test out a Tracking Protection idea.",
+  "devDependencies": {
+    "grunt": "~0.4.2"
+  },
+  "multiprocessCompatible": "true"
+}
