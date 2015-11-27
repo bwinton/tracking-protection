@@ -1,0 +1,10 @@
+.DS_Store
+.agignore
+.git
+.gitignore
+.jpmignore
+
+Gruntfile.js
+node_modules/grunt
+README.md
+web
