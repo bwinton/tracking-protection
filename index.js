@@ -26,37 +26,25 @@ var load = function () {
   prev_pb_pref = Services.prefs.getBoolPref(PB_PREF);
   Services.prefs.setBoolPref(PB_PREF, true);
 
-// Listen for tab content loads.
-  tabs.on('ready', function(tab) {
+  let showIcon = (tab) => {
     if (tab.url.includes('nytimes.com')) {
-      console.log('nytimes');
       TrackingProtection.icon.style.listStyleImage = `url(${self.data.url('badged-image.svg')})`;
-      TrackingProtection.onSecurityChange(Ci.nsIWebProgressListener.STATE_BLOCKED_TRACKING_CONTENT);
-    } else if (tab.url.includes('cnn.com')) {
-      console.log('cnn');
+      TrackingProtection.icon.style.width = '20px';
+    } else {
       TrackingProtection.icon.style.listStyleImage = '';
+      TrackingProtection.icon.style.width = '';
+    }
+
+    if (tab.url.includes('nytimes.com') || tab.url.includes('cnn.com')) {
       TrackingProtection.onSecurityChange(Ci.nsIWebProgressListener.STATE_BLOCKED_TRACKING_CONTENT);
     } else {
-      console.log('none');
-      TrackingProtection.icon.style.listStyleImage = '';
       TrackingProtection.onSecurityChange(0);
     }
-  });
-  tabs.on('activate', function (tab) {
-    if (tab.url.includes('nytimes.com')) {
-      console.log('nytimes');
-      TrackingProtection.icon.style.listStyleImage = `url(${self.data.url('badged-image.svg')})`;
-      TrackingProtection.onSecurityChange(Ci.nsIWebProgressListener.STATE_BLOCKED_TRACKING_CONTENT);
-    } else if (tab.url.includes('cnn.com')) {
-      console.log('cnn');
-      TrackingProtection.icon.style.listStyleImage = '';
-      TrackingProtection.onSecurityChange(Ci.nsIWebProgressListener.STATE_BLOCKED_TRACKING_CONTENT);
-    } else {
-      console.log('none');
-      TrackingProtection.icon.style.listStyleImage = '';
-      TrackingProtection.onSecurityChange(0);
-    }
-  });
+  };
+
+  // Listen for tab content loads.
+  tabs.on('pageshow', showIcon);
+  tabs.on('activate', showIcon);
 };
 
 var unload = function () {
