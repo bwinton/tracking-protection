@@ -28,7 +28,7 @@ var addTrackers = function (document, title, hosts) {
 
   let host = document.createElement('label');
   host.setAttribute('value', title);
-  host.setAttribute('style', 'font-weight: bold; margin-left: -1em');
+  host.setAttribute('style', 'font-weight: bold; margin-left: 0; font-size: 14px');
   host.setAttribute('flex', '0');
   content.appendChild(host);
 
@@ -47,6 +47,7 @@ var addTrackers = function (document, title, hosts) {
   hosts.forEach(i => {
     let label = document.createElement('label');
     label.setAttribute('value', i);
+    label.setAttribute('style', 'color: #4488dd; font-size: 12px');
     retval.push(label);
   });
   return retval;
@@ -62,6 +63,7 @@ var load = function () {
 
   if (!prev_text) {
     let document = TrackingProtection.content.ownerDocument;
+
     prev_text = document.getElementById('tracking-blocked').textContent;
 
     // Add the sub-view.
@@ -100,7 +102,8 @@ var load = function () {
     });
 
     subview.appendChild(box);
-    TrackingProtection.container.parentElement.parentElement.parentElement.querySelector('vbox.panel-subviews').appendChild(subview);
+    let subviews = document.getAnonymousElementByAttribute(document.getElementById('identity-popup-multiView'), 'anonid', 'subViews');
+    subviews.appendChild(subview);
 
     // Add the button.
     let button = document.createElement('button');
@@ -111,7 +114,7 @@ var load = function () {
   }
 
   let showIcon = (tab) => {
-    if (tab.url.includes('nytimes.com')) {
+    if (tab.url.includes('youtube.com')) {
       TrackingProtection.icon.style.listStyleImage = `url(${self.data.url('badged-image.svg')})`;
       TrackingProtection.icon.style.width = '21px';
     } else {
@@ -119,10 +122,15 @@ var load = function () {
       TrackingProtection.icon.style.width = '';
     }
 
-    if (tab.url.includes('nytimes.com') || tab.url.includes('cnn.com')) {
-      TrackingProtection.content.style.backgroundImage = `url(${self.data.url('badged-image.svg')})`;
+    if (tab.url.includes('youtube.com') || tab.url.includes('cnn.com')) {
       TrackingProtection.content.style.backgroundSize = '32px auto';
-      TrackingProtection.content.querySelector('#tracking-blocked').textContent = 'Firefox is blocking 35 companies that may be tracking your browsing.';
+      if (tab.url.includes('youtube.com')) {
+        TrackingProtection.content.style.backgroundImage = `url(${self.data.url('badged-image.svg')})`;
+        TrackingProtection.content.querySelector('#tracking-blocked').textContent = 'Firefox is blocking 35 companies that may be tracking your browsing.';
+      } else {
+        TrackingProtection.content.style.backgroundImage = `url(${self.data.url('badged-image2.svg')})`;
+        TrackingProtection.content.querySelector('#tracking-blocked').textContent = 'Firefox is blocking 24 companies that may be tracking your browsing.';
+      }
       TrackingProtection.container.querySelector('#identity-popup-tracking-expander').style.display = '';
       TrackingProtection.onSecurityChange(Ci.nsIWebProgressListener.STATE_BLOCKED_TRACKING_CONTENT);
     } else {

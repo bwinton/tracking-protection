@@ -20,5 +20,5 @@
   <use xlink:href="#shape-shield-outer" mask="url(#mask-shield-cutout)" fill="#999999" />
   <circle cx="15" cy="6" r="6" fill="#999999"/>
   <text x="15" y="9" text-anchor="middle" fill="#ffffff"
-    style="font-size: 8px; font-family: sans-serif">35</text>
+    style="font-size: 8px; font-family: sans-serif">24</text>
 </svg>
