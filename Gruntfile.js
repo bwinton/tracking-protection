@@ -66,7 +66,7 @@ module.exports = function(grunt){
       cmd: 'jpm',
       args: ['run',
         '-b',
-        '/Applications/Local/FirefoxNightly.app'
+        '/Applications/Local/Firefox.app'
       ]
     }, function spawned(error, result, code) {
       if (code !== 0) {
