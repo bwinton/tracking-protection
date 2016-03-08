@@ -1,0 +1,12 @@
+{
+  "title": "Tracking Protection",
+  "name": "tracking",
+  "version": "0.0.1",
+  "description": "Tracking Protection UI for advanced users",
+  "main": "index.js",
+  "author": "Robert Helmer <rhelmer@mozilla.com>",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "MPL"
+}
