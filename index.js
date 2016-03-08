@@ -37,7 +37,7 @@ let panel = panels.Panel({
   }
 });
 
-panel.port.on("disable", (addonMessage) => {
+panel.port.on("toggle", (addonMessage) => {
   let activeTab = tabs.activeTab;
   // NOTE below is from:
   // https://dxr.mozilla.org/mozilla-central/rev/be593a64d7c6a826260514fe758ef32a6ee580f7/browser/base/content/browser-trackingprotection.js
