@@ -44,8 +44,9 @@ panel.port.on("disable", (addonMessage) => {
   // Convert document URI into the format used by
   // nsChannelClassifier::ShouldEnableTrackingProtection.
   // Any scheme turned into https is correct.
-  // FIXME there must be a way to get at the nsIURI in activeTab...
   // TODO would be nice to make this easier for add-ons to extend
+
+  // FIXME there must be a way to get at the nsIURI in activeTab...
   let url = activeTab.url.replace(/^http:\/\//, "https://");
   let normalizedUrl = Services.io.newURI(url, null, null);
 
