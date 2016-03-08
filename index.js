@@ -1,31 +1,27 @@
 var { ToggleButton } = require('sdk/ui/button/toggle');
 var panels = require("sdk/panel");
-var self = require("sdk/self");
+var tabs = require("sdk/tabs");
 
 var button = ToggleButton({
-  id: 'candy-button',
-  label: 'Candy',
+  id: 'tracking-button',
+  label: 'Tracking Protection',
   icon: {
-    '18': './candy-icon-16.png',
-    '32': './candy-icon-32.png',
-    '64': './candy-icon-64.png'
+    '18': './shield-error-icon-16.png',
+    '32': './shield-error-icon-32.png',
+    '64': './shield-error-icon-64.png'
   },
-  onChange: handleChange
+  onChange: (state) => {
+    if (state.checked) {
+      panel.show({
+        position: button
+      });
+    }
+  }
 });
 
 var panel = panels.Panel({
   contentURL: './panel.html',
-  onHide: handleHide
-});
-
-function handleChange(state) {
-  if (state.checked) {
-    panel.show({
-      position: button
-    });
+  onHide: () => {
+    button.state('window', {checked: false});
   }
-}
-
-function handleHide() {
-  button.state('window', {checked: false});
-}
+});
