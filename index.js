@@ -58,26 +58,3 @@ panel.port.on("disable", (addonMessage) => {
 
   activeTab.reload();
 });
-
-// NOTE below is from:
-// https://dxr.mozilla.org/mozilla-central/rev/be593a64d7c6a826260514fe758ef32a6ee580f7/browser/base/content/browser-trackingprotection.js
-// TODO would be nice to make this easier for add-ons to extend
-
-/*
-// Convert document URI into the format used by
-// nsChannelClassifier::ShouldEnableTrackingProtection.
-// Any scheme turned into https is correct.
-let normalizedUrl = Services.io.newURI(
-  "https://" + gBrowser.selectedBrowser.currentURI.hostPort,
-  null, null);
-
-// Add the current host in the "trackingprotection" consumer of
-// the permission manager using a normalized URI. This effectively
-// places this host on the tracking protection allowlist.
-if (PrivateBrowsingUtils.isBrowserPrivate(gBrowser.selectedBrowser)) {
-  PrivateBrowsingUtils.addToTrackingAllowlist(normalizedUrl);
-} else {
-  Services.perms.add(normalizedUrl,
-    "trackingprotection", Services.perms.ALLOW_ACTION);
-}
-*/
