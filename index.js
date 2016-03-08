@@ -47,6 +47,7 @@ panel.port.on("disable", (addonMessage) => {
   // TODO would be nice to make this easier for add-ons to extend
 
   // FIXME there must be a way to get at the nsIURI in activeTab...
+  // what we really want is hostPort
   let url = activeTab.url.replace(/^http:\/\//, "https://");
   let normalizedUrl = Services.io.newURI(url, null, null);
 
