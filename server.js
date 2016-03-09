@@ -1,9 +1,15 @@
+var PORT = 5000;
 var formidable = require('formidable'),
     http = require('http'),
     util = require('util');
 
 http.createServer(function(req, res) {
-  if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
+  if (req.method.toLowerCase() == 'post') {
+    console.log("incoming POST request");
+    if (!req.url == "/upload") {
+        console.error("invalid URL:", req.url);
+        return;
+    }
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       if (err) {
@@ -14,9 +20,14 @@ http.createServer(function(req, res) {
       res.writeHead(200, {'content-type': 'text/plain'});
       res.write('received upload:\n\n');
       res.end(util.inspect({fields: fields, files: files}));
+      console.log(util.inspect({fields: fields, files: files}));
     });
     return;
+  } else {
+    console.error("invalid request method", req.method);
   }
   res.writeHead(200, {'content-type': 'text/plain'});
   res.end();
-}).listen(5000);
+}).listen(PORT);
+
+console.log("listening on port:", PORT);
