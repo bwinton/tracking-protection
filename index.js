@@ -61,10 +61,6 @@ tabs.on("ready", (tab) => {
   panel.port.emit("reset");
 });
 
-tabs.on("*", (e) => {
-  console.log("*:", e);
-});
-
 // page is loaded from back/forward cache
 // This also fires when regular pages are done loading.
 tabs.on("pageshow", (tab) => {
