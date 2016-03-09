@@ -1,4 +1,5 @@
-# Tracking Protection
+# Stop trackers in their tracks
+
 Tracking Protection UI for advanced users
 
 # Install
