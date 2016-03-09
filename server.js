@@ -1,4 +1,4 @@
-var PORT = 5000;
+var PORT = process.env.PORT || 5000;
 var formidable = require('formidable'),
     http = require('http'),
     util = require('util');
