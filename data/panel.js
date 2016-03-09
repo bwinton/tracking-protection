@@ -10,7 +10,6 @@ self.port.on("reset", () => {
   document.getElementById("toggle").disabled = true;
   document.getElementById("report").disabled = true;
   var textarea = document.getElementById("report-content");
-  textarea.value = "";
   textarea.disabled = true;
 });
 

@@ -40,16 +40,19 @@ function submitReport(comments, blockedScreenShot, unblockedScreenShot) {
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
-          var span = document.getElementById("status");
+          var status = document.getElementById("status");
           if (xhr.state == 200) {
             console.log("report id:", xhr.responseText);
-            document.getElementById("status").innerHTML = "xhr.responseText";
+            status.innerHTML = "report sent, thanks!";
+            var textarea = document.getElementById("report-content");
+            textarea.value = "";
           } else {
-            span.innerHTML = "error submitting report, please try again";
+            status.innerHTML = "error submitting report, please try again.";
           }
         }
     };
     xhr.send(multipart);
+    document.getElementById("status").innerHTML = "sending report...";
 }
 
 window.addEventListener("click", (event) => {
