@@ -31,11 +31,11 @@ function submitReport(comments, blockedScreenShot, unblockedScreenShot) {
     var multipart = "";
     for (var key in form) {
         multipart += "--" + boundary +
-            "\r\nContent-Disposition: form-data; name=" + key +
+            "\r\nContent-Disposition: form-data; name=\"" + key + "\"" +
             "\r\nContent-type: text/plain" +
             "\r\n\r\n" + form[key] + "\r\n";
     }
-    multipart += "--"+boundary+"--\r\n";
+    multipart += "--" + boundary + "--\r\n";
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
