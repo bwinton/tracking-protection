@@ -3,13 +3,12 @@
  *
  * NOTE - this file purposely does not use ES6, to be more web-compatible.
  */
-var reportsServer = "https://crash-reports.allizom.org";
-var statsServer = "https://crash-stats.mocotoolsstaging.net";
+var reportsServer = "http://localhost:5000/upload";
 var productName = "TrackingProtection";
 var version = "0.1";
 
 function submitReport(comments, blockedScreenShot, unblockedScreenShot) {
-    var serverURL = reportsServer + "/submit";
+    var serverURL = reportsServer;
     var xhr = new XMLHttpRequest();
 
     var form = {
@@ -41,7 +40,7 @@ function submitReport(comments, blockedScreenShot, unblockedScreenShot) {
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
           var status = document.getElementById("status");
-          if (xhr.state == 200) {
+          if (xhr.status == 200) {
             console.log("report id:", xhr.responseText);
             status.innerHTML = "report sent, thanks!";
             var textarea = document.getElementById("report-content");

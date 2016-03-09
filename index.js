@@ -76,7 +76,7 @@ tabs.on("ready", (tab) => {
   panel.port.emit("reset");
 });
 
-// Page is loaded from back/forward cache.
+// Page is retrieved from back/forward cache.
 // This also fires when regular pages are done loading.
 tabs.on("pageshow", (tab) => {
   enableControls();
