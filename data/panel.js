@@ -9,7 +9,6 @@ self.port.on("reset", () => {
   console.log("reset");
   document.getElementById("toggle").disabled = true;
   document.getElementById("report").disabled = true;
-  document.getElementById("status").innerHTML = "";
   var textarea = document.getElementById("report-content");
   textarea.disabled = true;
 });
@@ -32,8 +31,13 @@ self.port.on("disabled", () => {
 
 self.port.on("changeurl", (url) => {
   if (url) {
+    if (document.getElementById("url").innerHTML == "for " + url) {
+      console.log("url already set");
+      return;
+    }
     document.getElementById("url").innerHTML = "for " + url;
   } else {
     document.getElementById("url").innerHTML = "disabled for this address.";
   }
+  document.getElementById("status").innerHTML = "";
 });

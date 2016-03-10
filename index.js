@@ -90,8 +90,6 @@ tabs.on("pageshow", (tab) => {
 });
 
 panel.port.on("toggle", (addonMessage) => {
-  panel.port.emit("reset");
-
   let activeTab = tabs.activeTab;
   let normalizedUrl = normalizeUrl(activeTab.url);
 
