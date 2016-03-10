@@ -58,6 +58,7 @@ function enableControls() {
   let normalizedUrl = normalizeUrl(tabs.activeTab.url);
   if (normalizedUrl.scheme != "https") {
     console.log("tracking protection only works for web URLs");
+    panel.port.emit("changeurl");
     return;
   }
   if (Services.perms.testPermission(normalizedUrl, "trackingprotection")) {

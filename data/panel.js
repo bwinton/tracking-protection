@@ -31,5 +31,9 @@ self.port.on("disabled", () => {
 });
 
 self.port.on("changeurl", (url) => {
-  document.getElementById("url").innerHTML = "for " + url;
+  if (url) {
+    document.getElementById("url").innerHTML = "for " + url;
+  } else {
+    document.getElementById("url").innerHTML = "disabled for this address.";
+  }
 });
