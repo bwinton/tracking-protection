@@ -9,5 +9,8 @@
   "engines": {
     "firefox": ">=38.0a1"
   },
+  "dependencies": {
+    "formidable": ">= 1.0.17"
+  },
   "license": "MPL"
 }

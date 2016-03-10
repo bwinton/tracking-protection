@@ -1,17 +1,19 @@
-# Stop trackers in their tracks
+Firefox Add-on providing Tracking Protection UI for advanced users.
 
-Tracking Protection UI for advanced users
+Enables Firefox's built-in Tracking Protection features, and provides
+the ability to quickly and easily disable/enable and provide comments
+and screenshots on sites that don't work correctly.
 
-# Install
+# Install Firefox add-on tool jpm
+  npm install jpm -g
 
-  npm install -g jpm formidable
+# Install test collection server
+  npm install
 
-# Run test collection server
-
-  node server.js
+# Run test collection server (in background)
+  npm start &
 
 # Run Firefox with tracking add-on
-
   jpm run
 
 # Icons
