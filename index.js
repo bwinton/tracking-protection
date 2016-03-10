@@ -56,6 +56,10 @@ function normalizeUrl(url) {
 
 function enableControls() {
   let normalizedUrl = normalizeUrl(tabs.activeTab.url);
+  if (normalizedUrl.scheme != "https") {
+    console.log("tracking protection only works for web URLs");
+    return;
+  }
   if (Services.perms.testPermission(normalizedUrl, "trackingprotection")) {
     console.log("tracking protection *not* already active for:", normalizedUrl.spec);
     panel.port.emit("disabled");
@@ -63,6 +67,7 @@ function enableControls() {
     console.log("tracking protection already active for:", normalizedUrl.spec);
     panel.port.emit("enabled");
   }
+  panel.port.emit("changeurl", normalizedUrl.host);
 }
 
 // a new tab has been selected, reset the add-on controls
@@ -74,6 +79,7 @@ tabs.on("activate", () => {
 // DOM has loaded but page isn't finished, reset the add-on controls
 tabs.on("ready", (tab) => {
   panel.port.emit("reset");
+  enableControls();
 });
 
 // Page is retrieved from back/forward cache.
@@ -97,3 +103,5 @@ panel.port.on("toggle", (addonMessage) => {
 
   activeTab.reload();
 });
+
+enableControls();
