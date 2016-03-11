@@ -41,16 +41,16 @@ function submitReport(comments, reason, url, screenshot) {
           var status = document.getElementById("status");
           if (xhr.status == 200) {
             console.log("report id:", xhr.responseText);
-            status.innerHTML = "report sent, thanks!";
+            status.textContent = "report sent, thanks!";
             var textarea = document.getElementById("report-content");
             textarea.value = "";
           } else {
-            status.innerHTML = "error submitting report, please try again.";
+            status.textContent = "error submitting report, please try again.";
           }
         }
     };
     xhr.send(multipart);
-    document.getElementById("status").innerHTML = "sending report...";
+    document.getElementById("status").textContent = "sending report...";
 }
 
 /**
@@ -68,7 +68,7 @@ window.addEventListener("click", (event) => {
 self.port.on("report", (report) => {
   console.log("report");
   let comments = document.getElementById("report-content").value;
-  let url = document.getElementById("url").innerHTML;
+  let url = document.getElementById("url").textContent;
   submitReport(comments, report["reason"], url, report["screenshot"]);
 });
 
@@ -101,13 +101,13 @@ self.port.on("disabled", () => {
 
 self.port.on("changeurl", (url) => {
   if (url) {
-    if (document.getElementById("url").innerHTML == url) {
+    if (document.getElementById("url").textContent == url) {
       console.log("url already set");
       return;
     }
-    document.getElementById("url").innerHTML = url;
+    document.getElementById("url").textContent = url;
   } else {
-    document.getElementById("url").innerHTML = "disabled for this address.";
+    document.getElementById("url").textContent = "disabled for this address.";
   }
-  document.getElementById("status").innerHTML = "";
+  document.getElementById("status").textContent = "";
 });
