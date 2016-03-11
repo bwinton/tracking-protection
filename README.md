@@ -16,3 +16,6 @@ and screenshots on sites that don't work correctly.
 
 ## Run Firefox with tracking add-on
   jpm run
+
+## Generate XPI file for installing, uploading to addons.mozilla.org etc.
+  jpm xpi
