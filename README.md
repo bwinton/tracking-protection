@@ -16,10 +16,3 @@ and screenshots on sites that don't work correctly.
 
 ## Run Firefox with tracking add-on
   jpm run
-
-## Icons
-Icons are public domain, from:
-
-http://www.iconarchive.com/show/small-n-flat-icons-by-paomedia/shield-ok-icon.html
-
-http://www.iconarchive.com/show/small-n-flat-icons-by-paomedia/shield-error-icon.html
