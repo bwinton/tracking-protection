@@ -7,7 +7,7 @@ var reportsServer = "http://localhost:5000/upload";
 var productName = "TrackingProtection";
 var version = "0.1";
 
-function submitReport(comments, reason, blockedScreenShot, unblockedScreenShot) {
+function submitReport(comments, reason, url, blockedScreenShot, unblockedScreenShot) {
     var serverURL = reportsServer;
     var xhr = new XMLHttpRequest();
 
@@ -16,6 +16,7 @@ function submitReport(comments, reason, blockedScreenShot, unblockedScreenShot) 
         "Version": version,
         "Comments": comments,
         "Reason": reason,
+        "URL": url,
     };
     if (blockedScreenShot) {
         form["BlockedScreenShot"] = blockedScreenShot;
@@ -63,7 +64,8 @@ window.addEventListener("click", (event) => {
     } else {
       let reason = (t.id == "report") ? "report" : "disable";
       let comments = document.getElementById("report-content").value;
-      submitReport(comments, reason);
+      let url = document.getElementById("url").innerHTML;
+      submitReport(comments, reason, url);
     }
   }
 }, false);
