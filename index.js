@@ -7,6 +7,10 @@ const { window: { document } } = require('sdk/addon/window');
 const { getTabContentWindow, getActiveTab } = require('sdk/tabs/utils');
 const { getMostRecentBrowserWindow } = require('sdk/window/utils');
 
+// Canvas is used for taking screen shots.
+const canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
+document.documentElement.appendChild(canvas);
+
 // This add-on uses built-in tracking protection, which doesn't have
 // hooks for add-ons to use yet.
 const {Cu} = require("chrome");
@@ -101,7 +105,9 @@ tabs.on("pageshow", (tab) => {
   enableControls();
 });
 
+// report and disable + reload
 panel.port.on("toggle", (addonMessage) => {
+  console.log("debug", addonMessage);
   let activeTab = tabs.activeTab;
   let normalizedUrl = normalizeUrl(activeTab.url);
 
@@ -112,7 +118,41 @@ panel.port.on("toggle", (addonMessage) => {
       "trackingprotection", Services.perms.ALLOW_ACTION);
   }
 
+  if (addonMessage == "Disable and report") {
+    let report = {
+      "screenshot": captureTab(),
+      "reason": "disable",
+    };
+    panel.port.emit("report", report);
+  }
   activeTab.reload();
 });
+
+// report only, do not disable and reload
+panel.port.on("report", (addonMessage) => {
+  let report = {
+    "screenshot": captureTab(),
+    "reason": "disable",
+  };
+  panel.port.emit("report", report);
+});
+
+// take a screen shot of visible area, defaulting to current active tab
+function captureTab(tab=getActiveTab(getMostRecentBrowserWindow())) {
+  let contentWindow = getTabContentWindow(tab);
+
+  let w = contentWindow.innerWidth;
+  let h = contentWindow.innerHeight;
+  let x = contentWindow.scrollX;
+  let y = contentWindow.scrollY;
+
+  canvas.width = w;
+  canvas.height = h;
+
+  let ctx = canvas.getContext("2d");
+
+  ctx.drawWindow(contentWindow, x, y, w, h, "#000");
+  return canvas.toDataURL();
+}
 
 enableControls();
