@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link href="style.css" rel="stylesheet">
+  </head>
   <body>
-    <h1>Tracking protection <span id="url"></span></h1>
+    Tracking Protection
+    <br>
+    <span id="url"></span>
+    <textarea id="report-content" rows="10" cols="30" disabled></textarea>
+    <br>&nbsp;<br>
     <input type="button" id="report" value="Report a problem" disabled></input>
     <input type="button" id="toggle" value="Disable and report" disabled></input>
     <br>
     <input type="checkbox" checked disabled>Include screenshots</input>
-    <textarea id="report-content" rows="5" cols="30" disabled></textarea>
     <br>
     <span id="status"></span>
     <script src="reporting.js"></script>

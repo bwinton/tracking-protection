@@ -31,11 +31,11 @@ self.port.on("disabled", () => {
 
 self.port.on("changeurl", (url) => {
   if (url) {
-    if (document.getElementById("url").innerHTML == "for " + url) {
+    if (document.getElementById("url").innerHTML == url) {
       console.log("url already set");
       return;
     }
-    document.getElementById("url").innerHTML = "for " + url;
+    document.getElementById("url").innerHTML = url;
   } else {
     document.getElementById("url").innerHTML = "disabled for this address.";
   }

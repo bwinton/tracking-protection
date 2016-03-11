@@ -15,14 +15,23 @@ Cu.import("resource://gre/modules/Services.jsm");
 // Enable tracking protection globally when add-on is installed.
 Services.prefs.setBoolPref("privacy.trackingprotection.enabled", true);
 
+let trackingEnabledIcons = {
+  "18": "./tracking-protection.svg",
+  "32": "./tracking-protection.svg",
+  "64": "./tracking-protection.svg",
+}
+
+let trackingDisabledIcons = {
+  "18": "./tracking-protection-disabled.svg",
+  "32": "./tracking-protection-disabled.svg",
+  "64": "./tracking-protection-disabled.svg",
+}
+
+
 let button = ToggleButton({
   id: "tracking-button",
   label: "Tracking Protection",
-  icon: {
-    "18": "./shield-error-icon-16.png",
-    "32": "./shield-error-icon-32.png",
-    "64": "./shield-error-icon-64.png"
-  },
+  icon: trackingEnabledIcons,
   onChange: (state) => {
     if (state.checked) {
       panel.show({
@@ -59,14 +68,17 @@ function enableControls() {
   if (normalizedUrl.scheme != "https") {
     console.log("tracking protection only works for web URLs");
     panel.port.emit("changeurl");
+    button.icon = trackingDisabledIcons;
     return;
   }
   if (Services.perms.testPermission(normalizedUrl, "trackingprotection")) {
     console.log("tracking protection *not* already active for:", normalizedUrl.spec);
     panel.port.emit("disabled");
+    button.icon = trackingDisabledIcons;
   } else {
     console.log("tracking protection already active for:", normalizedUrl.spec);
     panel.port.emit("enabled");
+    button.icon = trackingEnabledIcons;
   }
   panel.port.emit("changeurl", normalizedUrl.host);
 }
