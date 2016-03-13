@@ -1,6 +1,6 @@
-addMessageListener("fs/screenshot", makeScreenshot);
+addMessageListener("fs/screenshot", screenshot);
 
-function makeScreenshot(payload) {
+function screenshot(payload) {
     var startX = content.startX || 0;
     var startY = content.startY || 0;
     var width = content.innerWidth;
@@ -15,8 +15,6 @@ function makeScreenshot(payload) {
     // Save context as png
     var image = canvas.toDataURL('image/png');
     var report = payload.data;
-    console.log(report);
     report["screenshot"] = image;
-    console.log(report);
-    sendAsyncMessage("got-screenshot", report);
+    sendAsyncMessage("screenshot-finished", report);
 }

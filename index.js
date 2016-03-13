@@ -122,7 +122,7 @@ panel.port.on("toggle", (addonMessage) => {
     let report = {
       "reason": "disable",
     };
-    captureTab(report);
+    attachScreenshot(report);
   }
   activeTab.reload();
 });
@@ -132,11 +132,12 @@ panel.port.on("report", (addonMessage) => {
   let report = {
     "reason": "disable",
   };
-  captureTab(report);
+  attachScreenshot(report);
 });
 
 // take a screen shot of visible area in current active tab
-function captureTab(report) {
+// this must be done in a frame script to work multi-process
+function attachScreenshot(report) {
     const tab = tabs.activeTab;
     const xulTab = require("sdk/view/core").viewFor(tab);
     const xulBrowser = require("sdk/tabs/utils").getBrowserForTab(xulTab);
@@ -144,9 +145,8 @@ function captureTab(report) {
     var browserMM = xulBrowser.messageManager;
     browserMM.loadFrameScript(
       require("sdk/self").data.url("frame-scripts/screenshot.js"), false);
-    browserMM.addMessageListener("got-screenshot", function (payload) {
+    browserMM.addMessageListener("screenshot-finished", function (payload) {
       let report = payload.data;
-      console.log("report:", report);
       panel.port.emit("report", report);
     });
     browserMM.sendAsyncMessage('fs/screenshot', report);
