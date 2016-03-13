@@ -120,10 +120,9 @@ panel.port.on("toggle", (addonMessage) => {
 
   if (addonMessage == "Disable and report") {
     let report = {
-      "screenshot": captureTab(),
       "reason": "disable",
     };
-    panel.port.emit("report", report);
+    captureTab(report);
   }
   activeTab.reload();
 });
@@ -131,28 +130,26 @@ panel.port.on("toggle", (addonMessage) => {
 // report only, do not disable and reload
 panel.port.on("report", (addonMessage) => {
   let report = {
-    "screenshot": captureTab(),
     "reason": "disable",
   };
-  panel.port.emit("report", report);
+  captureTab(report);
 });
 
-// take a screen shot of visible area, defaulting to current active tab
-function captureTab(tab=getActiveTab(getMostRecentBrowserWindow())) {
-  let contentWindow = getTabContentWindow(tab);
+// take a screen shot of visible area in current active tab
+function captureTab(report) {
+    const tab = tabs.activeTab;
+    const xulTab = require("sdk/view/core").viewFor(tab);
+    const xulBrowser = require("sdk/tabs/utils").getBrowserForTab(xulTab);
 
-  let w = contentWindow.innerWidth;
-  let h = contentWindow.innerHeight;
-  let x = contentWindow.scrollX;
-  let y = contentWindow.scrollY;
-
-  canvas.width = w;
-  canvas.height = h;
-
-  let ctx = canvas.getContext("2d");
-
-  ctx.drawWindow(contentWindow, x, y, w, h, "#000");
-  return canvas.toDataURL();
+    var browserMM = xulBrowser.messageManager;
+    browserMM.loadFrameScript(
+      require("sdk/self").data.url("frame-scripts/screenshot.js"), false);
+    browserMM.addMessageListener("got-screenshot", function (payload) {
+      let report = payload.data;
+      console.log("report:", report);
+      panel.port.emit("report", report);
+    });
+    browserMM.sendAsyncMessage('fs/screenshot', report);
 }
 
 enableControls();
