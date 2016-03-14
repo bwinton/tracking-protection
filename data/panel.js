@@ -59,7 +59,7 @@ function submitReport(comments, reason, url, screenshot) {
 window.addEventListener("click", (event) => {
   let t = event.target;
   if (t.id == "toggle") {
-    self.port.emit("toggle", t.value);
+    self.port.emit("toggle", t.textContent);
   } else if (t.id == "report") {
     self.port.emit("report");
   }
@@ -83,7 +83,7 @@ self.port.on("reset", () => {
 
 self.port.on("enabled", () => {
   console.log("enabled");
-  document.getElementById("toggle").value = "Disable and report";
+  document.getElementById("toggle").textContent = "Disable and report";
   document.getElementById("toggle").disabled = false;
   document.getElementById("report").disabled = false;
   document.getElementById("report-content").disabled = false;
@@ -92,7 +92,7 @@ self.port.on("enabled", () => {
 
 self.port.on("disabled", () => {
   console.log("disabled");
-  document.getElementById("toggle").value = "Enable";
+  document.getElementById("toggle").textContent = "Enable";
   document.getElementById("toggle").disabled = false;
   document.getElementById("report").disabled = false;
   document.getElementById("report-content").disabled = false;
