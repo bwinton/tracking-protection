@@ -4,18 +4,22 @@
     <link href="style.css" rel="stylesheet">
   </head>
   <body>
-    Tracking Protection (<span id="url"></span>)
-    <br>
-    <b>Something wrong with this page?</b>
-    <br>
-    Tell us about it:
-    <textarea id="report-content" rows="6" cols="30" disabled></textarea>
-    <br>&nbsp;<br>
-    <input type="button" id="report" value="Report a problem" disabled></input>
-    <input type="button" id="toggle" value="Disable and report" disabled></input>
-    <br>
-    <input type="checkbox" id="screenshot" checked disabled>Include screenshots</input>
-    <br>
-    <span id="status"></span>
+    <div class="panel-section panel-section-header">
+      <div class="text-section-header">Tracking Protection (<span id="url"></span>)</div>
+    </div>
+    <div class="panel-section panel-section-formElements">
+      <br>
+      <b>Something wrong with this page?</b>
+      <br>
+      Tell us about it:
+      <textarea id="report-content" rows="6" cols="30" disabled></textarea>
+      <br>&nbsp;<br>
+      <button id="report" value="Report a problem" disabled></button>
+      <button id="toggle" value="Disable and report" disabled></button>
+      <br>
+      <input type="checkbox" id="screenshot" checked disabled>Include screenshots</input>
+      <br>
+      <span id="status"></span>
+    </div>
   </body>
 </html>
