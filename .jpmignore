@@ -1,0 +1,19 @@
+# Ignore any zip or xpi files
+*.zip
+*.xpi
+
+# Ignore local node modules
+node_modules/
+
+# Ignore git
+.git/
+
+# Ignore ignore files
+.jpmignore
+.gitignore
+
+# Ignore editor-generated files
+*.swp
+
+# Ignore log files
+*.log
